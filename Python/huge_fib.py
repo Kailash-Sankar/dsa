@@ -1,4 +1,4 @@
-# Uses python2
+# Uses python3
 import sys
 '''
 find the mod of a huge fibonacci number
@@ -38,18 +38,18 @@ def find_fib_mod(n,m):
     if n <= 1:
         return n;
     p = opt_pisano(m)
+    print('pisano',p)
     x = n % p;
+    print('mod',x)
     y = alt(x,m)
 
     return y;
-
 
 if __name__ == '__main__':
     input = sys.stdin.read();
 
     n, m = map(int, input.split())
     if n > m:
-        print find_fib_mod(n,m)
+        print(find_fib_mod(n,m))
     else :
-        print alt(n,m)
-
+        print(alt(n,m))
