@@ -11,9 +11,9 @@ def fast_count_segments(nps, npe, points):
     npe.sort();
 
     for i in range(0,len(points)):
-        m = binary_search(nps,points[i],'start')        
+        m = binary_search(nps,points[i],'start')
         if m >= 0:
-            exc = binary_search(npe,points[i],'end')            
+            exc = binary_search(npe,points[i],'end')
             cnt[i] = m - exc;
     return cnt
 
@@ -25,16 +25,11 @@ def binary_search(s,x,key):
         if x == s[mid]:
             # for matches in start, get max index
             if key == 'start':
-                while mid+1 < len(s) and x == s[mid+1]:
-                    mid+=1;
-                # for mario
-                mid+=1;              
+                left = mid+1;
             # for matches in end, get min index
             else:
-                while mid-1 >= 0 and x == s[mid-1]:
-                    mid-=1;                
+                right = mid-1;
 
-            return mid;
         elif x > s[mid]:
             left=mid+1;
         else:
@@ -43,7 +38,7 @@ def binary_search(s,x,key):
     return left;
 
 def naive_count_segments(nps, npe, points):
-    cnt = [0] * len(points) 
+    cnt = [0] * len(points)
     #return cnt;
     for i in range(len(points)):
         for j in range(len(nps)):
@@ -62,9 +57,9 @@ def extract_data(data):
 
 def build_test_data():
 
-    s = 500 # random.randrange(1,50000)
-    p = 500 #random.randrange(1,50000)
-    limit = 10 #10**8
+    s = random.randrange(1,50000)
+    p = random.randrange(1,50000)
+    limit = 10**8 # set small range like 10, for equal values
 
     print('Test:',s,p);
     data = [s,p]
@@ -79,22 +74,19 @@ def build_test_data():
 
 def run_test():
     data = build_test_data();
-    #data = [3,6,5,6,3,5,5,9,0,5,6,9,7,1];
-    #data = [3,6,5,5,5,5,5,5,0,5,6,9,7,1];
-    #data = [2,3,0,5,7,10,1,6,11];    
     (nps,npe,points) = extract_data(data);
     #print('inputs',nps,npe,points);
-    
+
     cnt1 = naive_count_segments(nps,npe,points)
     naive_time = time.time()
     print("--- naive done: %s seconds ---" % (naive_time - start_time))
-    
+
     cnt2 = fast_count_segments(nps,npe,points)
-    print("--- fast done: %s seconds ---" % (time.time() - naive_time))    
-    
+    print("--- fast done: %s seconds ---" % (time.time() - naive_time))
+
     f = 0;
     for i in range(0,len(points)):
-        print(points[i],':',cnt1[i],cnt2[i])
+        #print(points[i],':',cnt1[i],cnt2[i])
         if cnt1[i] != cnt2[i]:
             f+=1;
     print("errors:",f);
