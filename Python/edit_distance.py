@@ -46,44 +46,53 @@ def edit_distance(s, t):
     
     return edMat[len(s)][len(t)];
 
-def optimal_alignment(e,s,t):    
+def optimal_alignment(e,s,t):
     se = []
-    te = []    
+    te = []
     i = len(s)
     j = len(t)
-    
+    lcs = []
+
     while i+j > 0:
-        #print('iter',i,j);
         pos = e[i][j]
-        
-        d = e[i-1][j-1]
-        h = e[i-1][j]
-        v = e[i][j-1]       
+
+        d = h = v = math.inf
+
+        if i-1 >= 0 and j-1 >= 0:
+            d = e[i-1][j-1]
+        if i-1 >= 0:
+            h = e[i-1][j]
+        if j-1 >= 0:
+            v = e[i][j-1]
+
         acts = (d,h,v)
-        
         step = acts.index(min(acts))
-        
-        #print('act',acts,step);
-        
+
         # diagonal, match or mismatch
         if step == 0:
             se.append(s[i-1])
             te.append(t[j-1])
             i=i-1
             j=j-1
+
+            if s[i] == t[j]:
+                lcs.append(s[i])
+
         # horizontal, deletion
         elif step == 1:
             se.append(s[i-1])
             te.append('-')
-            j=j-1;
+            i=i-1;
         # vertical, insertion
         else:
             se.append('-')
             te.append(t[j-1])
-            i=i-1
+            j=j-1
 
     print(list(reversed(se)))
     print(list(reversed(te)))
+    print('longest common subsequence',lcs)
+    #return list(reversed(lcs));
 
 def main():
     print(edit_distance(input(), input()))
