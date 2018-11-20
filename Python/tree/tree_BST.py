@@ -47,10 +47,28 @@ class BST():
             self._inorder(node.right)
 
     def height(self):
-        pass
+        return self._findHeight(self.root)        
+        
+    def _findHeight(self,node):
+        if node is None:
+            return -1;
+        l = self._findHeight(node.left)
+        r = self._findHeight(node.right)
+        return max(l,r) + 1;
 
-
-
+    def levels(self):
+        if self.root is None:
+            Print('Tree is empty')
+        else:
+            self._q = [self.root];
+            while len(self._q) > 0:
+                node = self._q.pop(0);
+                if node:
+                    print(node.val)
+                    self._q.append(node.left);
+                    self._q.append(node.right);
+                
+              
 bst = BST();
 for i in range(10):
     val = randint(1,100)
@@ -58,3 +76,6 @@ for i in range(10):
     bst.add(val)
 print();
 print(bst)
+print('Height of BST',bst.height());
+print('-----');
+bst.levels();
