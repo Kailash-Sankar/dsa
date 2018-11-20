@@ -67,6 +67,31 @@ class BST():
                     print(node.val)
                     self._q.append(node.left);
                     self._q.append(node.right);
+      
+     def lro(self):
+        if self.root is None:
+            print('empty')
+        else:
+            self._q = [self.root,'-'];
+            self._lvl = 1
+            while len(self._q) > 0:
+                #print('queue',self._q)
+                node = self._q.pop(0)
+
+                if node == '-':
+                    if len(self._q) == 0:
+                        break;
+                    print('-' * self._lvl)
+                    self._lvl += 1;
+                    self._q.append('-')
+                else:
+                    print(node.val,end=' ')
+                    if node.left is not None:
+                        self._q.append(node.left)
+                    if node.right is not None:
+                        self._q.append(node.right)
+            print();
+
                 
               
 bst = BST();
