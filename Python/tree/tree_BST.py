@@ -40,12 +40,14 @@ class BST():
             self._inorder(self.root)
             return str(self.sorted)
 
+    # in order traversal
     def _inorder(self,node):
         if node:
             self._inorder(node.left)
             self.sorted.append(node.val)
             self._inorder(node.right)
 
+    # find height of a tree
     def height(self):
         return self._findHeight(self.root)        
         
@@ -56,6 +58,7 @@ class BST():
         r = self._findHeight(node.right)
         return max(l,r) + 1;
 
+    # level order traversal
     def levels(self):
         if self.root is None:
             Print('Tree is empty')
@@ -67,8 +70,8 @@ class BST():
                     print(node.val)
                     self._q.append(node.left);
                     self._q.append(node.right);
-      
-     def lro(self):
+    # level order traversal with level information
+    def lro(self):
         if self.root is None:
             print('empty')
         else:
@@ -91,7 +94,7 @@ class BST():
                     if node.right is not None:
                         self._q.append(node.right)
             print();
-
+     
                 
               
 bst = BST();
@@ -104,3 +107,5 @@ print(bst)
 print('Height of BST',bst.height());
 print('-----');
 bst.levels();
+print('-----');
+bst.lro();
