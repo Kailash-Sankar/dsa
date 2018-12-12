@@ -94,7 +94,26 @@ class BST():
                     if node.right is not None:
                         self._q.append(node.right)
             print();
-     
+    # vertical slicing
+    def vro(self):
+        if self.root is None:
+            print('empty')
+        else:
+            self._v = {}
+            self._vertical(self.root,0)
+        print('verticals',self._v)
+
+    def _vertical(self,node,vline):
+        if vline in self._v:
+            self._v[vline].append(node.val)
+        else:
+            self._v[vline] = [node.val];
+
+        if node.left is not None:
+            self._vertical(node.left,vline-1)
+
+        if node.right is not None:
+            self._vertical(node.right,vline+1)   
                 
               
 bst = BST();
@@ -109,3 +128,5 @@ print('-----');
 bst.levels();
 print('-----');
 bst.lro();
+print('---------')
+bst.vro();
