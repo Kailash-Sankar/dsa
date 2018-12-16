@@ -1,8 +1,7 @@
+# merge n sorted arrays, naive and heap approach
 import math
 from random import randint
 import time
-
-# merge n sorted arrays, navie and heap approach
 
 def merge_arrays_naive(al):
     noa = len(al)

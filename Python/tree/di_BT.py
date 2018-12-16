@@ -42,6 +42,8 @@ class BT:
         self._di(self.root)
         return self._diameter;
     
+    # for finding path return it as a tuple
+    # unpack and set path when a larger diameter is found
     def _di(self,node):
         if node is not None:
             # leaf node
