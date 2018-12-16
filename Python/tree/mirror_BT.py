@@ -117,4 +117,19 @@ def test():
     btree.isMirror(bt1);
     bt1.isMirror(bt2);
     
+    print('--- test case 4 ---')
+    bt3 = BT()
+    bt3.root = Node(1)
+    bt3.root.left = Node(2)
+    bt3.root.right = Node(2)
+    bt3.root.left.left = Node(3)
+    bt3.root.left.right = Node(4)
+    bt3.root.right.left = Node(4)
+    bt3.root.right.right = Node(3)
+    bt3.pp()
+    # check if the tree is a mirror of itself
+    bt3.isMirror(bt3);
+    bt4 = bt3.mirror();
+    bt4.pp()
+    
 test();
