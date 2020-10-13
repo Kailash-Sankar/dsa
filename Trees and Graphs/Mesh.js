@@ -1,5 +1,5 @@
-
-function getPath(network, sender, receiver) {
+// passing path along with queue
+function _getPath(network, sender, receiver) {
   // Find the shortest route in the network between the two users
   if(!(sender in network) || !(receiver in network)) {
         throw('Node not found in network');
@@ -28,6 +28,41 @@ function getPath(network, sender, receiver) {
   return messageRoute;
 }
 
+// using the visited object itself to maintain parent link and building path using it
+function getPath(graph, startNode, endNode) {
+  if(!(startNode in graph) || !(endNode in graph)) {
+    throw('Missing node in graph');
+  }
+
+  // Find the shortest route in the network between the two users
+  const q = [startNode];
+  const tracePath = { [startNode]: null };
+  
+  // BFS search from startNode to endNode
+  while(q.length > 0) {
+    const node = q.shift();
+    if(node === endNode) {
+      break;
+    }
+    
+    graph[node].forEach( n => {
+      if(!(n in tracePath)) {
+        tracePath[n] = node;
+        q.push(n);
+      }
+    });
+  }
+  
+  // build path
+  let node = endNode;
+  const path = [];
+  while(node in tracePath) {
+    path.push(node);
+    node = tracePath[node];
+  }
+
+  return path.length === 0 ? null : path.reverse();
+}
 
 
 // Tests
